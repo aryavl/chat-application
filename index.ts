@@ -4,15 +4,15 @@ import http from 'http'
 import cors from 'cors'
 import express from 'express'
 import userRouter from './routes/userRoutes'
-
+import cookieParser from 'cookie-parser'
 const app =express()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(cookieParser())
 
 app.use(cors())
 app.use('/',userRouter)
-
 
 
 mongoose.connect(process.env.MONGO_URL!)
@@ -26,3 +26,5 @@ db.once("open",()=>{
 })
 
 })
+
+// app.use('/',userrouteTest)
