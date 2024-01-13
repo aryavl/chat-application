@@ -3,12 +3,17 @@ import React, { useState } from "react";
 import Avatar from "./Avatar";
 import { handleSubmit } from "@/libs/fetchers";
 import { useRouter } from "next/navigation";
+import { shallow } from "zustand/shallow";
+import { userUser } from "@/store/userStore";
 
 const Form = () => {
-    const [avatar,setAvatar]=useState((Math.random()*20).toFixed())
+  const {myUser,setUser} = userUser((state)=>({myUser:state.myUser,setUser:state.setUser}),shallow)
+ 
+    
+  const [avatar,setAvatar]=useState((Math.random()*20).toFixed())
     const router = useRouter()
     return (
-    <form onSubmit={(e)=>handleSubmit(e,router)} className="flex flex-col gap-5">
+    <form onSubmit={(e)=>handleSubmit(e,router,avatar,setUser)} className="flex flex-col gap-5">
         <Avatar avatarId={avatar} setAvatar={setAvatar}/>
       <div className="flex flex-col xl:flex-row gap-5">
         <div className="form-control w-full">
